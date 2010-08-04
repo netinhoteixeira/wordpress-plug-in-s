@@ -30,11 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 function deactivate_visual_editor() {
   global $wp_rich_edit;
 
-  $post_id = $_GET['post'];
-  $value = get_post_meta($post_id, 'deactivate_visual_editor', true);;
-  if($value == 'true')
-    $wp_rich_edit = false;
-
+  if (isset($_REQUEST['post'])) {
+    $post_id = $_REQUEST['post'];
+    $value = get_post_meta($post_id, 'deactivate_visual_editor', true);
+    if ($value == 'true') {
+      $wp_rich_edit = false;
+    }
+  }
 }
 
 // Wordpress Hooks

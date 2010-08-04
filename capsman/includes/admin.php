@@ -71,8 +71,10 @@ $default = $this->current;
 							$disable = 'disabled="disabled"';
 						}
 					}
+                    
+                    $value = (isset($rcaps[$key])) ? $rcaps[$key] : '';
 				?>
-					<td style="<?php echo $style; ?>"><label for="caps[<?php echo $key; ?>]"><input id=caps[<?php echo $key; ?>] type="checkbox" name="caps[<?php echo $key; ?>]" value="1" <?php checked(1, $rcaps[$key]); echo $disable;?> />
+					<td style="<?php echo $style; ?>"><label for="caps[<?php echo $key; ?>]"><input id=caps[<?php echo $key; ?>] type="checkbox" name="caps[<?php echo $key; ?>]" value="1" <?php checked(1, $value); echo $disable;?> />
 					<?php echo $cap;
 					if ( ! empty($disable) ) {
 						echo '<input type="hidden" name="caps[manage_capabilities]" value="1" />';
@@ -97,8 +99,10 @@ $default = $this->current;
 
 					if ( ! $first_row ) {
 						// Now close a wellformed table
-						for ( $i; $i < $this->settings['form-rows']; $i++ ){
-							echo '<td>&nbsp;</td>';
+                        if (isset($this->settings) && isset($this->settings['form-rows'])) {
+                            for ( $i; $i < $this->settings['form-rows']; $i++ ){
+                                echo '<td>&nbsp;</td>';
+                            }
 						}
 					}
 					?>
@@ -114,7 +118,7 @@ $default = $this->current;
 			<input type="hidden" name="current" value="<?php echo $default; ?>" />
 			<input type="submit" name="Save" value="<?php _e('Save Changes', $this->ID) ?>" class="button-primary" /> &nbsp;
 			<?php if ( current_user_can('administrator') && 'administrator' != $default ) : ?>
-					<a class="ak-delete" title="<?php echo attribute_escape(__('Delete this role', $this->ID)) ?>" href="<?php echo wp_nonce_url("admin.php?page={$this->ID}&amp;action=delete&amp;role={$default}", 'delete-role_' . $default); ?>" onclick="if ( confirm('<?php echo js_escape(sprintf(__("You are about to delete the %s role.\n 'Cancel' to stop, 'OK' to delete.", $this->ID), $roles[$default])); ?>') ) { return true;}return false;"><?php _e('Delete Role', $this->ID)?></a>
+					<a class="ak-delete" title="<?php echo esc_attr(__('Delete this role', $this->ID)) ?>" href="<?php echo wp_nonce_url("admin.php?page={$this->ID}&amp;action=delete&amp;role={$default}", 'delete-role_' . $default); ?>" onclick="if ( confirm('<?php echo esc_js(sprintf(__("You are about to delete the %s role.\n 'Cancel' to stop, 'OK' to delete.", $this->ID), $roles[$default])); ?>') ) { return true;}return false;"><?php _e('Delete Role', $this->ID)?></a>
 			<?php endif; ?>
 		</p>
 

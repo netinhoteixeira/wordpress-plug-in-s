@@ -66,7 +66,7 @@ a:active, a:focus {color:#06C !important;}
 #adminmenu li.wp-menu-separator-last {height:28px;background:transparent url('images/menu-arrows.png') no-repeat scroll left top;width:auto;margin-top:20px;overflow:hidden;}
 .hiddenMenu #adminmenu li.wp-menu-separator, .hiddenMenu #adminmenu li.wp-menu-separator-last {background-position:left bottom;width:auto;}
 #adminmenu li.wp-menu-separator a.separator, #adminmenu li.wp-menu-separator-last a.separator {line-height:28px;padding-left:34px;height:28px;}
-#adminmenu li div.wp-menu-image {margin:0 3px;background-image:url('images/menu.png') !important;}
+/*#adminmenu li div.wp-menu-image {margin:0 3px;background-image:url('images/menu.png') !important;}*/
 #adminmenu li.toplevel_page_bp-general-settings div.wp-menu-image {background-image:none !important;}
 ul#adminmenu li#toplevel_page_bp-general-settings div.wp-menu-image a {background-position:-2px -34px;opacity:0.5;}
 ul#adminmenu li#toplevel_page_bp-general-settings.wp-has-current-submenu div.wp-menu-image a, ul#adminmenu li#toplevel_page_bp-general-settings:hover div.wp-menu-image a, ul#adminmenu li#toplevel_page_bp-general-settings.hover div.wp-menu-image a {background-position:-2px -34px;opacity:1;}

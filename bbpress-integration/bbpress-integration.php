@@ -166,6 +166,7 @@ function bbpress_integration_get_cookie_domain_and_path()
 	} else {
 		$cookiehash = '';
 		$sitecookiepath = '';
+        $admincookiepath = '';
 	}
 
 	return compact( 'cookiedomain', 'cookiepath', 'sitecookiepath', 'admincookiepath', 'cookiehash' );
@@ -180,7 +181,7 @@ function bbpress_integration_set_bb_cookies( $uri, $expire = false, $expiration 
 	}
 
 	$secure = false;
-	if ( strtolower( $uri_parsed['scheme'] ) === 'https' ) {
+	if ((isset($uri_parsed['scheme'])) && ( strtolower( $uri_parsed['scheme'] ) === 'https' )) {
 		$secure = true;
 	}
 
@@ -235,6 +236,7 @@ function bbpress_integration_set_bb_auth_cookies( $auth_cookie, $expire, $expira
 	}
 
 	if ( empty( $my_plugins_uri ) ) {
+		if (!isset($uri)) { $uri = ''; }
 		bbpress_integration_set_bb_cookies( $uri . '/my-plugins', $expire, $expiration, $user_id );
 	} else {
 		bbpress_integration_set_bb_cookies( $my_plugins_uri, $expire, $expiration, $user_id );
@@ -293,6 +295,7 @@ function bbpress_integration_admin_page_process()
 	if ( function_exists( 'is_site_admin' ) && !is_site_admin() ) {
 		return;
 	}
+	if (isset($_POST['option_page']))
 	if ( strtolower( $_SERVER['REQUEST_METHOD'] ) == 'post' && $_POST['option_page'] == 'bbpress-integration-admin' ) {
 		check_admin_referer( 'bbpress-integration-admin' );
 
@@ -390,14 +393,14 @@ function bbpress_integration_admin_page()
 			<tr valign="top">
 				<th scope="row"><label for="uri"><?php _e( 'bbPress URL', 'bbpress_integration' ) ?></label></th>
 				<td>
-					<input name="uri" type="text" id="bbpress-integration-uri" value="<?php echo attribute_escape( $uri ); ?>" size="60" class="code" /><br />
+					<input name="uri" type="text" id="bbpress-integration-uri" value="<?php echo esc_attr( $uri ); ?>" size="60" class="code" /><br />
 					<?php _e( 'The complete URL of the front page of your bbPress forums.', 'bbpress_integration' ); ?>
 				</td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="my_plugins_uri"><?php _e( 'Your plugins URL', 'bbpress_integration' ) ?></label></th>
 				<td>
-					<input name="my_plugins_uri" type="text" id="bbpress-integration-my-plugins-uri" value="<?php echo attribute_escape( $my_plugins_uri ); ?>" size="60" class="code" /><br />
+					<input name="my_plugins_uri" type="text" id="bbpress-integration-my-plugins-uri" value="<?php echo esc_attr( $my_plugins_uri ); ?>" size="60" class="code" /><br />
 					<?php _e( 'The complete URL of your plugins directory. Leave blank if it is in the default location "my-plugins" in the bbPress directory.', 'bbpress_integration' ); ?>
 				</td>
 			</tr>
